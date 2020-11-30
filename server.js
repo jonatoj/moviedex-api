@@ -4,7 +4,7 @@ const nodemon = require("nodemon");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const MOVIE = require("./movies-data-small.json");
+const MOVIES = require("./movies-data-small.json");
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(function validateBearerToken(req, res, next) {
 });
 
 app.use("/movie", function handleGetMovie(req, res) {
-  let response = MOVIE;
+  let response = MOVIES;
 
   if (req.query.genre) {
     response = response.filter((movie) =>
