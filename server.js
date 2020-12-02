@@ -4,7 +4,7 @@ const nodemon = require("nodemon");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
-const MOVIE = require("./movies-data-small.json");
+const MOVIES = require("./movies-data-small.json");
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(function validateBearerToken(req, res, next) {
 });
 
 app.use("/movie", function handleGetMovie(req, res) {
-  let response = MOVIE;
+  let response = MOVIES;
 
   if (req.query.genre) {
     response = response.filter((movie) =>
@@ -32,13 +32,13 @@ app.use("/movie", function handleGetMovie(req, res) {
 
   if (req.query.country) {
     response = response.filter((movie) =>
-      movie.country.toLowerCase().includes(req, query.country.toLowerCase())
+      movie.country.toLowerCase().includes(req.query.country.toLowerCase())
     );
   }
 
   if (req.query.avg_vote) {
     response = response.filter(
-      (movie) => Number(movie.avg_vote) >= Number(req, query.avg_vote)
+      (movie) => Number(movie.avg_vote) >= Number(req.query.avg_vote)
     );
   }
 
